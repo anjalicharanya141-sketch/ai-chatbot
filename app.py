@@ -1,26 +1,23 @@
 import streamlit as st
-import ollama
+from google import genai
 
 st.set_page_config(page_title="AI Chatbot", page_icon="🤖")
 
 st.title("🤖 AI CHATBOT")
 st.caption("Hiii! Ask me anything.")
 
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+
 text = st.text_input("Ask me anything")
 
 if st.button("Send"):
     if text.strip():
         with st.spinner("Thinking..."):
-            response = ollama.chat(
-                model="llama3.2",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": text
-                    }
-                ]
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=text
             )
 
-        st.write(response["message"]["content"])
+        st.write(response.text)
     else:
         st.warning("Please enter a question.")
