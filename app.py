@@ -1,4 +1,3 @@
-
 import streamlit as st
 import requests
 
@@ -18,10 +17,7 @@ if st.button("Send"):
     if text.strip():
         with st.spinner("Thinking..."):
 
-            url = (
-                "https://generativelanguage.googleapis.com/"
-                "v1beta/models/gemini-2.5-flash:generateContent"
-            )
+            url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
             headers = {
                 "Content-Type": "application/json",
@@ -51,8 +47,7 @@ if st.button("Send"):
                 answer = result["candidates"][0]["content"]["parts"][0]["text"]
                 st.write(answer)
             else:
-                st.error("API error. Please check your API key and try again.")
+                st.error("API error. Please check your API key.")
 
     else:
         st.warning("Please enter a question.")
-```
