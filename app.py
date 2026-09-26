@@ -41,13 +41,13 @@ if st.button("Send"):
                 headers=headers,
                 json=data
             )
-
             if response.status_code == 200:
                 result = response.json()
                 answer = result["candidates"][0]["content"]["parts"][0]["text"]
                 st.write(answer)
             else:
-                st.error("API error. Please check your API key.")
-
+                st.error(f"API Error {response.status_code}")
+                st.code(response.text)
+                
     else:
         st.warning("Please enter a question.")
